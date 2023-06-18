@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/products.css' %}">
+{% endblock css %}
+
+{% block content %}
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for product in products%}
+    <div class="col">
+        <div class="card">
+            <img src="{{ product.image.url }}" class="card-img-top"
+                alt="{{ product.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="coming_soon">
+                    {% if product.is_available %}
+                    <span>{{ product.price }}$</span> <b>В наличии</b>
+                    {% else %}
+                    <b>Скоро в продаже</b>
+                    {% endif %}
+                </p>
+                <p class="card-text">{{ product.description }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
