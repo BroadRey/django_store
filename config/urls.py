@@ -3,8 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from products.views import (goodby_view, hello_view, main_view, now_date_view,
-                            products_view)
+from products.views import (categories_view, goodby_view, hello_view,
+                            main_view, now_date_view, products_view)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,4 +13,5 @@ urlpatterns = [
     path('goodby/', goodby_view),
     path('', main_view, name='main_page'),
     path('products/', products_view, name='products'),
+    path('categories/', categories_view, name='categories'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

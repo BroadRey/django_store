@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/categories.css' %}">
+{% endblock css %}
+
+{% block content %}
+{% for category in categories %}
+<div class="container">
+    <img src="{{ category.image.url }}" alt="{{ category.name }}">
+    <p>{{ category.name }}</p>
+</div>
+{% endfor %}
+{% endblock content %}

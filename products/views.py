@@ -3,7 +3,7 @@ from datetime import date
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 
-from products.models import Product
+from products.models import Category, Product
 
 
 def hello_view(request: HttpRequest) -> HttpResponse:
@@ -41,3 +41,15 @@ def products_view(request: HttpRequest) -> HttpResponse:
     }
 
     return render(request, 'products/products.html', context=context)
+
+
+def categories_view(request: HttpRequest) -> HttpResponse:
+    if request.method != 'GET':
+        return HttpResponse('Invalid HTTP method', status=404)
+
+    categories = Category.objects.all()
+    context = {
+        'categories': categories,
+    }
+
+    return render(request, 'products/categories.html', context=context)
