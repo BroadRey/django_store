@@ -1,0 +1,19 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<div class="card" style="width: 40rem; margin: auto; margin: auto;">
+    <img src="{{ product.image.url }}" class="card-img-top"
+        alt="{{ product.name }}">
+    <div class="card-body">
+        <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <p class="card-text" style="font-size: 5rem">
+            {% if product.is_available %}
+            <span>{{ product.price }}$
+            {% else %}
+            <b>Скоро в продаже</b>
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock content %}

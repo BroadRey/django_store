@@ -8,7 +8,7 @@
 {% block content %}
 <div class="row row-cols-1 row-cols-md-3 g-4">
     {% for product in products%}
-    <div class="col">
+    <a href="{% url 'product_detail' product.id %}" class="col clickable-block">
         <div class="card">
             <img src="{{ product.image.url }}" class="card-img-top"
                 alt="{{ product.name }}">
@@ -24,7 +24,7 @@
                 <p class="card-text">{{ product.description }}</p>
             </div>
         </div>
-    </div>
+    </a>
     {% endfor %}
 </div>
 {% endblock content %}

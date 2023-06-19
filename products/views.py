@@ -53,3 +53,19 @@ def categories_view(request: HttpRequest) -> HttpResponse:
     }
 
     return render(request, 'products/categories.html', context=context)
+
+
+def product_detail_view(request: HttpRequest, id: int) -> HttpResponse:
+    if request.method != 'GET':
+        return HttpResponse('Invalid HTTP method', status=404)
+
+    try:
+        product = Product.objects.get(id=id)
+    except Product.DoesNotExist:
+        return HttpResponse('Page not found', status=404)
+
+    context = {
+        'product': product,
+    }
+
+    return render(request, 'products/detail.html', context=context)
