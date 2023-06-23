@@ -1,8 +1,10 @@
 from datetime import date
 
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 
+from products.forms import CategoryCreateForm, ProductCreateForm
 from products.models import Category, Product
 
 
@@ -44,12 +46,19 @@ def products_view(request: HttpRequest) -> HttpResponse:
 
 
 def categories_view(request: HttpRequest) -> HttpResponse:
-    if request.method != 'GET':
-        return HttpResponse('Invalid HTTP method', status=404)
+    if request.method == 'POST':
+        form = CategoryCreateForm(data=request.POST, files=request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('categories'))
+    else:
+        form = CategoryCreateForm
 
     categories = Category.objects.all()
     context = {
         'categories': categories,
+        'form': form,
     }
 
     return render(request, 'products/categories.html', context=context)
@@ -69,3 +78,20 @@ def product_detail_view(request: HttpRequest, id: int) -> HttpResponse:
     }
 
     return render(request, 'products/detail.html', context=context)
+
+
+def create_product_view(request: HttpRequest) -> HttpResponse:
+    if request.method == 'POST':
+        form = ProductCreateForm(data=request.POST, files=request.FILES)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('products'))
+    else:
+        form = ProductCreateForm
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'products/create.html', context)

@@ -10,6 +10,24 @@
 <div class="container">
     <img src="{{ category.image.url }}" alt="{{ category.name }}">
     <p>{{ category.name }}</p>
+    <br>
 </div>
 {% endfor %}
+<hr>
+<form action="{% url 'categories' %}" method="post"
+    enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group row">
+        <label for="{{ form.name.id_for_label }}">Введите название категории</label>
+        {{ form.name }}
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="{{ form.image.id_for_label }}">Прикрепите изображение
+            категории</label>
+        {{ form.image }}
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 {% endblock content %}
